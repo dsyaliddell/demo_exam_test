@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация Конференции.РФ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <main class="auth-container">
+        <h1>Регистрация</h1>
+    {% if errors %}
+        <div class="errors" data-testid="reg-errors">
+            <ul>
+                {% for error in errors %}
+                    <li>{{error}}</li>
+                    {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="/register" id="register-form" novalidate>
+        <label for="login">Логин</label>
+        <input type="text" id="login" name="login"
+                data-testid="reg-login"
+                placeholder="Латинские буквы и цифры, минимум 6" required>
+    </form>
+
+    <button type="submit" data-testid="reg-submit">Создать пользователя</button>
+    <p class="switch-link">Уже зарегистрированы?<a href="/login">Войти</a>
+    <script src="/static/js/validation.js" />
+</body>
+</html>
