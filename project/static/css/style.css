@@ -1,13 +1,66 @@
+/* ============================================================
+   ПОДКЛЮЧЕНИЕ ШРИФТА PT SANS ИЗ ПРИЛОЖЕНИЯ 1 
+   ============================================================ */
+@font-face {
+    font-family: 'PT Sans';
+    src: url('/static/fonts/PTSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PT Sans';
+    src: url('/static/fonts/PTSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PT Sans';
+    src: url('/static/fonts/PTSans-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'PT Sans';
+    src: url('/static/fonts/PTSans-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* ============================================================
+   ПЕРЕМЕННЫЕ (цвета из руководства по стилю)
+   ============================================================ */
+:root {
+    --color-primary:      #007bff;   
+    --color-dark:         #0d47a1;   
+    --color-gray:         #6c757d;   
+    --color-bg:           #f8f9fa;   
+    --color-white:        #ffffff;   
+    --color-error-bg:     #fdecea;  
+    --color-error-border: #f5c6cb; 
+    --color-error-text:   #721c24;   
+    --font-main: 'PT Sans', 'Segoe UI', Arial, sans-serif;
+    --radius: 10px;
+    --shadow: 0 4px 20px rgba(13, 71, 161, 0.08);
+}
+
+/* ============================================================
+   СБРОС ОТСТУПОВ
+   ============================================================ */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* ============================================================
+   БАЗОВЫЕ СТИЛИ СТРАНИЦЫ
+   ============================================================ */
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f0f4f8;
-    color: #1a202c;
+    font-family: var(--font-main);
+    background: var(--color-bg);
+    color: var(--color-dark);
+    font-size: 16px;
+    line-height: 1.5;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -15,72 +68,134 @@ body {
     padding: 20px;
 }
 
+/* ============================================================
+   КАРТОЧКА ФОРМЫ
+   ============================================================ */
 .auth-container {
-    background: #fff;
-    padding: 32px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: var(--color-white);
+    padding: 40px 32px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
+    border-top: 4px solid var(--color-primary);   /* фирменная полоска */
 }
 
+/* ============================================================
+   ЛОГОТИП
+   ============================================================ */
+.auth-logo {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ============================================================
+   ЗАГОЛОВКИ
+   ============================================================ */
 h1 {
-    font-size: 24px;
+    font-size: 36px;
+    font-weight: 700;
     margin-bottom: 24px;
     text-align: center;
-    color: #2b6cb0;
+    color: var(--color-dark);
 }
 
+h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--color-dark);
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--color-dark);
+}
+
+/* ============================================================
+   ПОДПИСИ К ПОЛЯМ
+   ============================================================ */
 label {
     display: block;
     font-size: 14px;
+    font-weight: 600;
     margin-bottom: 6px;
-    color: #4a5568;
+    color: var(--color-dark);
 }
 
+/* ============================================================
+   ПОЛЯ ВВОДА
+   ============================================================ */
 input {
     width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 16px;
-    border: 1px solid #cbd5e0;
-    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ced4da;
+    border-radius: var(--radius);
+    font-family: var(--font-main);
     font-size: 15px;
-    transition: border-color 0.2s;
+    color: var(--color-dark);
+    background: var(--color-white);
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Placeholder — курсив (по брендбуку: вспомогательный текст italic) */
+input::placeholder {
+    color: var(--color-gray);
+    font-style: italic;
+}
+
+/* Синяя рамка и мягкое свечение при фокусе */
 input:focus {
     outline: none;
-    border-color: #2b6cb0;
-    box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.15);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
 
+/* ============================================================
+   КНОПКА
+   ============================================================ */
 button {
     width: 100%;
-    padding: 12px;
-    background: #2b6cb0;
-    color: #fff;
+    padding: 14px;
+    background: var(--color-primary);
+    color: var(--color-white);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius);
+    font-family: var(--font-main);
     font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
 }
 
+/* Микроанимация: тёмный фон + тень при наведении */
 button:hover {
-    background: #2c5282;
+    background: var(--color-dark);
+    box-shadow: 0 6px 16px rgba(13, 71, 161, 0.25);
 }
 
+/* Микроанимация: сжатие при нажатии */
 button:active {
     transform: scale(0.98);
 }
 
+/* ============================================================
+   БЛОК ОШИБОК
+   ============================================================ */
 .errors {
-    background: #fed7d7;
-    border: 1px solid #fc8181;
-    color: #742a2a;
+    background: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+    color: var(--color-error-text);
     padding: 12px 16px;
-    border-radius: 8px;
-    margin-bottom: 16px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
     font-size: 14px;
 }
 
@@ -88,35 +203,48 @@ button:active {
     list-style: none;
 }
 
+.errors li::before {
+    content: '⚠ ';
+}
+
+/* ============================================================
+   ССЫЛКА ПЕРЕХОДА МЕЖДУ СТРАНИЦАМИ
+   ============================================================ */
 .switch-link {
     text-align: center;
-    margin-top: 16px;
+    margin-top: 18px;
     font-size: 14px;
-    color: #4a5568;
+    color: var(--color-gray);
+    font-style: italic;
 }
 
 .switch-link a {
-    color: #2b6cb0;
+    color: var(--color-primary);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+    font-style: normal;
+    transition: color 0.2s;
 }
 
 .switch-link a:hover {
+    color: var(--color-dark);
     text-decoration: underline;
 }
 
+/* ============================================================
+   АДАПТИВ ПОД ТЕЛЕФОН (+ БАЛЛЫ)
+   ============================================================ */
 @media (max-width: 480px) {
     .auth-container {
-        padding: 24px 18px;
+        padding: 28px 20px;
         border-radius: 8px;
     }
 
     h1 {
-        font-size: 20px;
+        font-size: 28px;
     }
 
     input, button {
-        font-size: 16px; 
+        font-size: 16px;  
     }
 }
-

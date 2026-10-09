@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация — Конференции.РФ</title>
+    <title>Регистрация - Конференции.РФ</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <main class="auth-container">
+
+        <!-- Логотип -->
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+
         <h1>Регистрация</h1>
 
+        <!-- Блок ошибок (Jinja2) -->
         {% if errors %}
             <div class="errors" data-testid="reg-errors">
                 <ul>
@@ -20,6 +25,7 @@
             </div>
         {% endif %}
 
+        <!-- Форма регистрации -->
         <form method="POST" action="/register" id="register-form" novalidate>
 
             <label for="login">Логин</label>
@@ -55,6 +61,7 @@
             <button type="submit" data-testid="reg-submit">Создать пользователя</button>
         </form>
 
+        <!-- Ссылка на страницу входа -->
         <p class="switch-link">
             Уже зарегистрированы? <a href="/login">Войти</a>
         </p>

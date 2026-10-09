@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Вход — Конференции.РФ</title>
+    <title>Вход - Конференции.РФ</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <main class="auth-container">
+
+        <!-- Логотип -->
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+
         <h1>Вход</h1>
 
+        <!-- Блок ошибок (Jinja2) -->
         {% if errors %}
             <div class="errors" data-testid="login-errors">
                 <ul>
@@ -20,18 +25,23 @@
             </div>
         {% endif %}
 
+        <!-- Форма входа -->
         <form method="POST" action="/login" id="login-form" novalidate>
+
             <label for="login">Логин</label>
             <input type="text" id="login" name="login"
-                   data-testid="login-login" required>
+                   data-testid="login-login"
+                   required>
 
             <label for="password">Пароль</label>
             <input type="password" id="password" name="password"
-                   data-testid="login-password" required>
+                   data-testid="login-password"
+                   required>
 
             <button type="submit" data-testid="login-submit">Войти</button>
         </form>
 
+        <!-- Ссылка на страницу регистрации -->
         <p class="switch-link">
             Еще не зарегистрированы? <a href="/register">Регистрация</a>
         </p>
