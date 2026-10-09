@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора — Конференции.РФ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <main class="auth-container wide">
+
+        <!-- Логотип -->
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+
+        <h1>Панель администратора</h1>
+
+        <!-- Навигация -->
+        <p class="switch-link">
+            Вы вошли как <strong>{{ session.login }}</strong> |
+            <a href="/logout">Выйти</a>
+        </p><br>
+
+        {% if not requests %}
+            <p class="empty">Заявок пока нет.</p>
+        {% else %}
+            <!-- Таблица заявок -->
+            <div class="admin-list">
+                {% for r in requests %}
+                    <div class="admin-row" data-testid="admin-row">
+
+                        <!-- Информация о заявке -->
+                        <div class="admin-row-info">
+                            <h3>{{ r.room_name }}</h3>
+                            <p><strong>Пользователь:</strong> {{ r.user_name }} ({{ r.user_login }})</p>
+                            <p><strong>Дата начала:</strong> {{ r.start_date }}</p>
+                            <p><strong>Оплата:</strong> {{ r.payment }}</p>
+                        </div>
+
+                        <!-- Форма смены статуса -->
+                        <form method="POST"
+                              action="/admin/{{ r.id }}/status"
+                              class="admin-status-form">
+
+                            <select name="status_id"
+                                    data-testid="admin-status"
+                                    onchange="this.form.submit()">
+                                {% for s in statuses %}
+                                    <option value="{{ s.id }}"
+                                        {% if s.id == r.status_id %}selected{% endif %}>
+                                        {{ s.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+
+                            <noscript>
+                                <button type="submit">Сохранить</button>
+                            </noscript>
+                        </form>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>

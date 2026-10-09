@@ -1,17 +1,15 @@
 /* ============================================================
-   ПОДКЛЮЧЕНИЕ ШРИФТА PT SANS ИЗ ПРИЛОЖЕНИЯ 1 
+   ШРИФТ PT SANS (по руководству)
    ============================================================ */
 @font-face {
     font-family: 'PT Sans';
     src: url('/static/fonts/PTSans-Regular.ttf') format('truetype');
     font-weight: 400;
-    font-style: normal;
 }
 @font-face {
     font-family: 'PT Sans';
     src: url('/static/fonts/PTSans-Bold.ttf') format('truetype');
     font-weight: 700;
-    font-style: normal;
 }
 @font-face {
     font-family: 'PT Sans';
@@ -19,32 +17,22 @@
     font-weight: 400;
     font-style: italic;
 }
-@font-face {
-    font-family: 'PT Sans';
-    src: url('/static/fonts/PTSans-BoldItalic.ttf') format('truetype');
-    font-weight: 700;
-    font-style: italic;
-}
 
 /* ============================================================
-   ПЕРЕМЕННЫЕ (цвета из руководства по стилю)
+   ЦВЕТА (по руководству)
    ============================================================ */
 :root {
-    --color-primary:      #007bff;   
-    --color-dark:         #0d47a1;   
-    --color-gray:         #6c757d;   
-    --color-bg:           #f8f9fa;   
-    --color-white:        #ffffff;   
-    --color-error-bg:     #fdecea;  
-    --color-error-border: #f5c6cb; 
-    --color-error-text:   #721c24;   
-    --font-main: 'PT Sans', 'Segoe UI', Arial, sans-serif;
+    --blue:  #007bff;   /* основной */
+    --dark:  #0d47a1;   /* тёмно-синий */
+    --gray:  #6c757d;   /* серый */
+    --bg:    #f8f9fa;   /* фон */
+    --white: #ffffff;
+    --red:   #721c24;   /* текст ошибок */
     --radius: 10px;
-    --shadow: 0 4px 20px rgba(13, 71, 161, 0.08);
 }
 
 /* ============================================================
-   СБРОС ОТСТУПОВ
+   БАЗА
    ============================================================ */
 * {
     box-sizing: border-box;
@@ -52,15 +40,11 @@
     padding: 0;
 }
 
-/* ============================================================
-   БАЗОВЫЕ СТИЛИ СТРАНИЦЫ
-   ============================================================ */
 body {
-    font-family: var(--font-main);
-    background: var(--color-bg);
-    color: var(--color-dark);
+    font-family: 'PT Sans', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
     font-size: 16px;
-    line-height: 1.5;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -69,21 +53,23 @@ body {
 }
 
 /* ============================================================
-   КАРТОЧКА ФОРМЫ
+   КАРТОЧКА
    ============================================================ */
 .auth-container {
-    background: var(--color-white);
-    padding: 40px 32px;
+    background: var(--white);
+    padding: 36px 30px;
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 20px rgba(13, 71, 161, 0.08);
     width: 100%;
     max-width: 440px;
-    border-top: 4px solid var(--color-primary);   /* фирменная полоска */
+    border-top: 4px solid var(--blue);
 }
 
-/* ============================================================
-   ЛОГОТИП
-   ============================================================ */
+.auth-container.wide {
+    max-width: 720px;
+}
+
+/* Логотип */
 .auth-logo {
     display: block;
     width: 64px;
@@ -93,158 +79,249 @@ body {
     object-fit: cover;
 }
 
-/* ============================================================
-   ЗАГОЛОВКИ
-   ============================================================ */
+/* Заголовки */
 h1 {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 24px;
+    font-size: 32px;
     text-align: center;
-    color: var(--color-dark);
-}
-
-h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    color: var(--color-dark);
+    margin-bottom: 22px;
 }
 
 h3 {
     font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--color-dark);
+    margin-bottom: 8px;
 }
 
 /* ============================================================
-   ПОДПИСИ К ПОЛЯМ
+   ПОЛЯ И КНОПКИ
    ============================================================ */
 label {
     display: block;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 6px;
-    color: var(--color-dark);
 }
 
-/* ============================================================
-   ПОЛЯ ВВОДА
-   ============================================================ */
-input {
+input, textarea, select {
     width: 100%;
     padding: 12px 14px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     border: 1px solid #ced4da;
     border-radius: var(--radius);
-    font-family: var(--font-main);
+    font-family: inherit;
     font-size: 15px;
-    color: var(--color-dark);
-    background: var(--color-white);
+    color: var(--dark);
+    background: var(--white);
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* Placeholder — курсив (по брендбуку: вспомогательный текст italic) */
-input::placeholder {
-    color: var(--color-gray);
+input::placeholder,
+textarea::placeholder {
+    color: var(--gray);
     font-style: italic;
 }
 
-/* Синяя рамка и мягкое свечение при фокусе */
-input:focus {
+input:focus,
+textarea:focus,
+select:focus {
     outline: none;
-    border-color: var(--color-primary);
+    border-color: var(--blue);
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
 }
 
-/* ============================================================
-   КНОПКА
-   ============================================================ */
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
 button {
     width: 100%;
     padding: 14px;
-    background: var(--color-primary);
-    color: var(--color-white);
+    background: var(--blue);
+    color: var(--white);
     border: none;
     border-radius: var(--radius);
-    font-family: var(--font-main);
+    font-family: inherit;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    transition: background 0.2s, transform 0.1s;
 }
 
-/* Микроанимация: тёмный фон + тень при наведении */
 button:hover {
-    background: var(--color-dark);
-    box-shadow: 0 6px 16px rgba(13, 71, 161, 0.25);
+    background: var(--dark);
 }
 
-/* Микроанимация: сжатие при нажатии */
 button:active {
     transform: scale(0.98);
 }
 
 /* ============================================================
-   БЛОК ОШИБОК
+   ОШИБКИ
    ============================================================ */
 .errors {
-    background: var(--color-error-bg);
-    border: 1px solid var(--color-error-border);
-    color: var(--color-error-text);
+    background: #fdecea;
+    border: 1px solid #f5c6cb;
+    color: var(--red);
     padding: 12px 16px;
     border-radius: var(--radius);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-size: 14px;
 }
 
-.errors ul {
-    list-style: none;
-}
-
-.errors li::before {
-    content: '⚠ ';
-}
+.errors ul { list-style: none; }
 
 /* ============================================================
-   ССЫЛКА ПЕРЕХОДА МЕЖДУ СТРАНИЦАМИ
+   ССЫЛКИ
    ============================================================ */
 .switch-link {
     text-align: center;
-    margin-top: 18px;
+    margin-top: 16px;
     font-size: 14px;
-    color: var(--color-gray);
+    color: var(--gray);
     font-style: italic;
 }
 
 .switch-link a {
-    color: var(--color-primary);
+    color: var(--blue);
     text-decoration: none;
     font-weight: 700;
     font-style: normal;
-    transition: color 0.2s;
 }
 
 .switch-link a:hover {
-    color: var(--color-dark);
     text-decoration: underline;
 }
 
 /* ============================================================
-   АДАПТИВ ПОД ТЕЛЕФОН (+ БАЛЛЫ)
+   СПИСОК ЗАЯВОК
+   ============================================================ */
+.empty {
+    text-align: center;
+    color: var(--gray);
+    font-style: italic;
+    padding: 20px 0;
+}
+
+.request-card {
+    background: var(--bg);
+    border: 1px solid #dee2e6;
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.request-card:hover {
+    box-shadow: 0 4px 16px rgba(13, 71, 161, 0.10);
+    transform: translateY(-2px);
+}
+
+.request-card p {
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+/* Форма отзыва */
+.review-form {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed #ced4da;
+}
+
+.review-form textarea {
+    min-height: 70px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.review-form select {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.review-form button {
+    width: auto;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+
+/* ============================================================
+   ПАНЕЛЬ АДМИНИСТРАТОРА
+   ============================================================ */
+.admin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg);
+    border: 1px solid #dee2e6;
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    transition: box-shadow 0.2s, transform 0.15s;
+}
+
+.admin-row-info {
+    flex: 1;
+}
+
+.admin-row-info h3 {
+    margin-bottom: 8px;
+    color: var(--dark);
+}
+
+.admin-row-info p {
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.admin-status-form select {
+    width: auto;
+    min-width: 180px;
+    margin-bottom: 0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.admin-status-form button {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 14px;
+}
+
+/* Адаптив для админки + баллы*/
+@media (max-width: 480px) {
+    .admin-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-status-form select {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+   АДАПТИВ ПОД СМАРТФОН + БАЛЛЫ
    ============================================================ */
 @media (max-width: 480px) {
     .auth-container {
-        padding: 28px 20px;
+        padding: 24px 18px;
         border-radius: 8px;
     }
 
     h1 {
-        font-size: 28px;
+        font-size: 26px;
     }
 
-    input, button {
-        font-size: 16px;  
+    input, button, textarea, select {
+        font-size: 16px;
     }
 }
+

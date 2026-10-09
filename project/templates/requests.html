@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заявки — Конференции.РФ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <main class="auth-container wide">
+
+        <!-- Логотип -->
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+
+        <h1>Мои заявки</h1>
+
+        <!-- Навигация -->
+        <p class="switch-link">
+            <a href="/requests/create">+ Создать заявку</a> |
+            <a href="/logout">Выйти</a>
+        </p>
+
+        <!-- Если заявок нет -->
+        {% if not requests %}
+            <p class="empty">У вас пока нет заявок.</p>
+
+        <!-- Если заявки есть — список -->
+        {% else %}
+            <div data-testid="req-list" class="requests-list">
+                {% for r in requests %}
+                    <article class="request-card">
+
+                        <!-- Информация о заявке -->
+                        <h3>{{ r.room_name }}</h3>
+                        <p><strong>Дата начала:</strong> {{ r.start_date }}</p>
+                        <p><strong>Оплата:</strong> {{ r.payment }}</p>
+                        <p><strong>Статус:</strong> {{ r.status_name }}</p>
+
+                        <!-- Форма отзыва — только если статус «Завершено» -->
+                        {% if r.status_name == 'Завершено' %}
+                            <form method="POST"
+                                  action="/requests/{{ r.id }}/review"
+                                  class="review-form">
+
+                                <label for="review-{{ r.id }}">Отзыв:</label>
+                                <textarea id="review-{{ r.id }}"
+                                          name="text"
+                                          data-testid="req-review"
+                                          placeholder="Оставьте отзыв..."
+                                          required>{{ r.review_text or '' }}</textarea>
+
+                                <label for="rating-{{ r.id }}">Оценка:</label>
+                                <select id="rating-{{ r.id }}" name="rating" required>
+                                    <option value="">—</option>
+                                    {% for i in range(1, 6) %}
+                                        <option value="{{ i }}"
+                                            {% if r.review_rating == i %}selected{% endif %}>
+                                            {{ i }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+
+                                <button type="submit">Отправить отзыв</button>
+                            </form>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>

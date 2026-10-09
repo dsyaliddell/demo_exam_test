@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание заявки — Конференции.РФ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <main class="auth-container">
+
+        <!-- Логотип -->
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+
+        <h1>Создание заявки</h1>
+
+        <!-- Блок ошибок (Jinja2) -->
+        {% if errors %}
+            <div class="errors" data-testid="req-errors">
+                <ul>
+                    {% for e in errors %}<li>{{ e }}</li>{% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Форма создания заявки -->
+        <form method="POST" action="/requests/create" id="request-form" novalidate>
+
+            <!-- Поле «Помещение» с подсказками из datalist -->
+            <label for="room">Помещение</label>
+            <input type="text" id="room" name="room"
+                   list="rooms-list"
+                   data-testid="req-room"
+                   placeholder="Начните вводить название"
+                   required>
+            <datalist id="rooms-list">
+                {% for room in rooms %}
+                    <option value="{{ room }}"></option>
+                {% endfor %}
+            </datalist>
+
+            <!-- Поле «Дата начала» -->
+            <label for="start_date">Дата начала</label>
+            <input type="date" id="start_date" name="start_date"
+                   data-testid="req-date" required>
+
+            <!-- Поле «Способ оплаты» -->
+            <label for="payment">Способ оплаты</label>
+            <select id="payment" name="payment"
+                    data-testid="req-payment" required>
+                <option value="">- выберите -</option>
+                <option value="очное">Очное посещение</option>
+                <option value="СБП">Перевод по СБП</option>
+            </select>
+
+            <button type="submit" data-testid="req-submit">Отправить</button>
+        </form>
+
+        <!-- Ссылка назад к списку -->
+        <p class="switch-link">
+            <a href="/requests">К моим заявкам</a>
+        </p>
+    </main>
+</body>
+</html>
