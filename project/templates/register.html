@@ -3,31 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация Конференции.РФ</title>
+    <title>Регистрация — Конференции.РФ</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
     <main class="auth-container">
         <h1>Регистрация</h1>
-    {% if errors %}
-        <div class="errors" data-testid="reg-errors">
-            <ul>
-                {% for error in errors %}
-                    <li>{{error}}</li>
+
+        {% if errors %}
+            <div class="errors" data-testid="reg-errors">
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
                     {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+                </ul>
+            </div>
+        {% endif %}
 
-    <form method="POST" action="/register" id="register-form" novalidate>
-        <label for="login">Логин</label>
-        <input type="text" id="login" name="login"
-                data-testid="reg-login"
-                placeholder="Латинские буквы и цифры, минимум 6" required>
-    </form>
+        <form method="POST" action="/register" id="register-form" novalidate>
 
-    <button type="submit" data-testid="reg-submit">Создать пользователя</button>
-    <p class="switch-link">Уже зарегистрированы?<a href="/login">Войти</a>
-    <script src="/static/js/validation.js" />
+            <label for="login">Логин</label>
+            <input type="text" id="login" name="login"
+                   data-testid="reg-login"
+                   placeholder="Латинские буквы и цифры, минимум 6"
+                   required>
+
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password"
+                   data-testid="reg-password"
+                   placeholder="Минимум 8 символов"
+                   required>
+
+            <label for="fullname">ФИО</label>
+            <input type="text" id="fullname" name="fullname"
+                   data-testid="reg-fullname"
+                   placeholder="Иванов Иван Иванович"
+                   required>
+
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone"
+                   data-testid="reg-phone"
+                   placeholder="8(999)123-45-67"
+                   required>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email"
+                   data-testid="reg-email"
+                   placeholder="user@example.com"
+                   required>
+
+            <button type="submit" data-testid="reg-submit">Создать пользователя</button>
+        </form>
+
+        <p class="switch-link">
+            Уже зарегистрированы? <a href="/login">Войти</a>
+        </p>
+    </main>
+
+    <script src="/static/js/validation.js"></script>
 </body>
 </html>
