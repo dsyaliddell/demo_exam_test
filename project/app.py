@@ -1,4 +1,3 @@
-# Импортируем инструменты Flask: создание приложения, шаблоны, запросы, редиректы, сессии.
 from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3      # Встроенная БД в одном файле — не требует установки сервера.
 import re           # Регулярные выражения — для проверки логина, телефона, email.
