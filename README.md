@@ -23,9 +23,11 @@ cd C:\Users\User\Desktop\demo_exam_test\project
 ```
 pip install flask
 ```
-или
+или для Linux РОСА
 ```
-python -m pip install flask
+python3 -m venv .venv
+source .venv/bin/activate
+pip install Flask
 ```
 **Шаг 4. Запуск приложения**
 ```
