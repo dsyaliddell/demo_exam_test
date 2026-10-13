@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заявки</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main class="auth-container wide">                     
+
+    <img src="/static/img/logo.jpg" alt="Логотип" class="auth-logo">
+
+    <h1>Мои заявки</h1>
+
+    <p class="switch-link">
+        <a href="/requests/create">+ Создать</a> | <a href="/logout">Выйти</a>
+    </p>
+
+    {% if not requests %}
+        <p class="empty">Заявок нет.</p>
+
+    {% else %}
+        <div data-testid="req-list">                    
+            {% for r in requests %}
+                <div class="request-card">
+                    <h3>{{ r.room_name }}</h3>
+                    <p>Дата: {{ r.start_date }}</p>
+                    <p>Оплата: {{ r.payment }}</p>
+                    <p>Статус: {{ r.status_name }}</p>
+
+                    {% if r.status_name == 'Завершено' %}
+                        <form method="POST" action="/requests/{{ r.id }}/review">
+                            <textarea name="text" data-testid="req-review"
+                                      placeholder="Отзыв" required>{{ r.review_text or '' }}</textarea>
+                            <select name="rating" required>
+                                <option value="">Оценка</option>
+                                {% for i in range(1,6) %}
+                                    <option value="{{ i }}"
+                                        {% if r.review_rating == i %}selected{% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Отправить</button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</main>
+</body>
+</html>

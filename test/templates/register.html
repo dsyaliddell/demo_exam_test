@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">                                        
+<head>
+    <meta charset="UTF-8">                             
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main class="auth-container">                          
+
+    <img src="/static/img/logo.jpg" alt="Логотип" class="auth-logo">
+
+    <h1>Регистрация</h1>
+
+    {% if errors %}
+        <div class="errors" data-testid="reg-errors">
+            <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="/register" id="register-form" novalidate>
+
+        <label>Логин</label>
+        <input type="text" name="login" data-testid="reg-login" required>
+
+        <label>Пароль</label>
+        <input type="password" name="password" data-testid="reg-password" required>
+
+        <label>ФИО</label>
+        <input type="text" name="fullname" data-testid="reg-fullname" required>
+
+        <label>Телефон</label>
+        <input type="tel" name="phone" data-testid="reg-phone" required>
+
+        <label>E-mail</label>
+        <input type="email" name="email" data-testid="reg-email" required>
+
+        <button type="submit" data-testid="reg-submit">Создать пользователя</button>
+    </form>
+
+    <p class="switch-link">Уже зарегистрированы? <a href="/login">Войти</a></p>
+</main>
+
+<script src="/static/js/validation.js"></script>       
+</body>
+</html>

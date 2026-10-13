@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель админа</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main class="auth-container wide">
+
+    <img src="/static/img/logo.jpg" alt="Логотип" class="auth-logo">
+
+    <h1>Панель администратора</h1>
+
+    <p class="switch-link">
+        Вы вошли как <b>{{ session.login }}</b> | <a href="/logout">Выйти</a>
+    </p>
+
+    {% if not requests %}
+        <p class="empty">Заявок нет.</p>
+    {% else %}
+        {% for r in requests %}
+            <div class="admin-row" data-testid="admin-row">
+                <div>
+                    <h3>{{ r.room_name }}</h3>
+                    <p>{{ r.user_name }} ({{ r.user_login }})</p>
+                    <p>Дата: {{ r.start_date }}</p>
+                    <p>Оплата: {{ r.payment }}</p>
+                </div>
+
+                <form method="POST" action="/admin/{{ r.id }}/status">
+                    <select name="status_id" data-testid="admin-status"
+                            onchange="this.form.submit()">
+                        {% for s in statuses %}
+                            <option value="{{ s.id }}"
+                                {% if s.id == r.status_id %}selected{% endif %}>{{ s.name }}</option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        {% endfor %}
+    {% endif %}
+</main>
+</body>
+</html>

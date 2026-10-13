@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main class="auth-container">
+
+    <img src="/static/img/logo.jpg" alt="Логотип" class="auth-logo">
+
+    <h1>Вход</h1>
+
+    {% if errors %}
+        <div class="errors" data-testid="login-errors">
+            <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+        </div>
+    {% endif %}
+
+    <form method="POST" action="/login" id="login-form" novalidate>
+        <label>Логин</label>
+        <input type="text" name="login" data-testid="login-login" required>
+
+        <label>Пароль</label>
+        <input type="password" name="password" data-testid="login-password" required>
+
+        <button type="submit" data-testid="login-submit">Войти</button>
+    </form>
+
+    <p class="switch-link">Еще не зарегистрированы? <a href="/register">Регистрация</a></p>
+</main>
+
+<script src="/static/js/validation.js"></script>
+</body>
+</html>

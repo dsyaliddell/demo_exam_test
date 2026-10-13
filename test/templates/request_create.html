@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание заявки</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<main class="auth-container">
+
+    <img src="/static/img/logo.jpg" alt="Логотип" class="auth-logo">
+
+    <h1>Создание заявки</h1>
+
+    {% if errors %}
+        <div class="errors"><ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+    {% endif %}
+
+    <form method="POST" action="/requests/create" novalidate>
+
+        <label>Помещение</label>
+        <input type="text" name="room" list="rooms" data-testid="req-room" required>
+        <datalist id="rooms">
+            {% for r in rooms %}<option value="{{ r }}"></option>{% endfor %}
+        </datalist>
+
+        <label>Дата</label>
+        <input type="date" name="start_date" data-testid="req-date" required>
+
+        <label>Оплата</label>
+        <select name="payment" data-testid="req-payment" required>
+            <option value="">—</option>
+            <option value="очное">Очное</option>
+            <option value="СБП">СБП</option>
+        </select>
+
+        <button type="submit" data-testid="req-submit">Отправить</button>
+    </form>
+
+    <p class="switch-link"><a href="/requests">← Назад</a></p>
+</main>
+</body>
+</html>
