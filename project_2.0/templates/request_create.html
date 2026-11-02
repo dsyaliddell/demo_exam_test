@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание заявки — Конференции.РФ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header class="site-header">
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+        <h1>Конференции.РФ</h1>
+    </header>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav class="site-nav">
+        <a href="/requests">Мои заявки</a>
+        <a href="/requests/create">+ Создать</a>
+        <a href="/logout">Выйти ({{ session.login }})</a>
+    </nav>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="auth-container">
+        <section>
+            <h2>Создание заявки</h2>
+
+            {% if errors %}
+                <div class="errors" data-testid="req-errors">
+                    <ul>{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul>
+                </div>
+            {% endif %}
+
+            <form method="POST" action="/requests/create" id="request-form" novalidate>
+                <!-- Поле ввода названия помещения с подсказками (datalist) -->
+                <label for="room">Помещение</label>
+                <input type="text" id="room" name="room" list="rooms-list" data-testid="req-room"
+                       placeholder="Начните вводить название" required>
+                <datalist id="rooms-list">
+                    {% for room in rooms %}
+                        <option value="{{ room }}"></option>
+                    {% endfor %}
+                </datalist>
+
+                <label for="start_date">Дата начала</label>
+                <input type="date" id="start_date" name="start_date" data-testid="req-date" required>
+
+                <label for="payment">Способ оплаты</label>
+                <select id="payment" name="payment" data-testid="req-payment" required>
+                    <option value="">- выберите -</option>
+                    <option value="очное">Очное посещение</option>
+                    <option value="СБП">Перевод по СБП</option>
+                </select>
+
+                <button type="submit" data-testid="req-submit">Отправить</button>
+            </form>
+
+            <p class="switch-link"><a href="/requests">К моим заявкам</a></p>
+        </section>
+    </main>
+
+    <!-- ПОДВАЛ (footer) -->
+    <footer class="site-footer">
+        <div class="footer-socials">
+            <img src="/static/img/wkok.png" alt="ВКонтакте и Одноклассники">
+        </div>
+        <p>© 2027 Конференции.РФ | ДЭ 09.02.07</p>
+    </footer>
+
+</body>
+</html>
