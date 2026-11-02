@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора — Конференции.РФ</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header class="site-header">
+        <img src="/static/img/logo.jpg" alt="Конференции.РФ" class="auth-logo">
+        <h1>Конференции.РФ</h1>
+    </header>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav class="site-nav">
+        <a href="/admin">Все заявки</a>
+        <a href="/logout">Выйти ({{ session.login }})</a>
+    </nav>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <main class="auth-container wide">
+        <section>
+            <h2>Панель администратора</h2>
+
+            {% if not requests %}
+                <p class="empty">Заявок пока нет.</p>
+            {% else %}
+                <div class="admin-list">
+                    {% for r in requests %}
+                        <!-- Строка заявки -->
+                        <article class="admin-row" data-testid="admin-row">
+                            <div class="admin-row-info">
+                                <h3>{{ r.room_name }}</h3>
+                                <p><strong>Пользователь:</strong> {{ r.user_name }} ({{ r.user_login }})</p>
+                                <p><strong>Дата начала:</strong> {{ r.start_date }}</p>
+                                <p><strong>Оплата:</strong> {{ r.payment }}</p>
+                            </div>
+
+                            <!-- Форма смены статуса (срабатывает при выборе в select) -->
+                            <form method="POST" action="/admin/{{ r.id }}/status" class="admin-status-form">
+                                <select name="status_id" data-testid="admin-status" onchange="this.form.submit()">
+                                    {% for s in statuses %}
+                                        <option value="{{ s.id }}" {% if s.id == r.status_id %}selected{% endif %}>
+                                            {{ s.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <noscript><button type="submit">Сохранить</button></noscript>
+                            </form>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <!-- ПОДВАЛ (footer) -->
+    <footer class="site-footer">
+        <div class="footer-socials">
+            <img src="/static/img/wkok.png" alt="ВКонтакте и Одноклассники">
+        </div>
+        <p>© 2027 Конференции.РФ | ДЭ 09.02.07</p>
+    </footer>
+
+</body>
+</html>
